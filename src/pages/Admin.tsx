@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft } from "lucide-react";
 
 const Admin = () => {
@@ -15,6 +16,7 @@ const Admin = () => {
     option_b: "",
     option_c: "",
     option_d: "",
+    category: "",
     correct_answer: "",
   });
 
@@ -27,6 +29,7 @@ const Admin = () => {
       option_b: "",
       option_c: "",
       option_d: "",
+      category: "",
       correct_answer: "",
     });
   };
@@ -46,6 +49,29 @@ const Admin = () => {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Category */}
+                <div className="space-y-2">
+                  <Label htmlFor="category">Category</Label>
+                  <Select
+                    value={formData.category}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, category: value })
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="os">Operating Systems</SelectItem>
+                      <SelectItem value="dbms">Database Management</SelectItem>
+                      <SelectItem value="ai">Artificial Intelligence</SelectItem>
+                      <SelectItem value="testing">Software Testing</SelectItem>
+                      <SelectItem value="dsa">Data Structures & Algorithms</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Question */}
                 <div className="space-y-2">
                   <Label htmlFor="question">Question</Label>
                   <Textarea
@@ -59,6 +85,7 @@ const Admin = () => {
                   />
                 </div>
 
+                {/* Options */}
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="option_a">Option A</Label>
@@ -106,6 +133,7 @@ const Admin = () => {
                   </div>
                 </div>
 
+                {/* Correct Answer */}
                 <div className="space-y-2">
                   <Label htmlFor="correct_answer">Correct Answer</Label>
                   <Input
