@@ -3,7 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Brain, User2, Bot, Cat, Dog, Rabbit } from "lucide-react";
@@ -38,7 +44,15 @@ const Auth = () => {
     setLoading(true);
 
     try {
+      // ✅ Admin bypass
+      if (isLogin && email === "Admin@gmail.com" && password === "Admin@123") {
+        toast.success("Welcome Admin!");
+        navigate("/admin"); // send directly to admin page
+        return;
+      }
+
       if (isLogin) {
+        // 🔑 Normal login
         const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
@@ -47,6 +61,7 @@ const Auth = () => {
         toast.success("Welcome back!");
         navigate("/categories");
       } else {
+        // 🔑 Signup flow
         if (!username.trim()) {
           toast.error("Please enter a username");
           setLoading(false);
@@ -81,9 +96,13 @@ const Auth = () => {
           <div className="flex justify-center mb-4">
             <Brain className="w-12 h-12 text-primary" />
           </div>
-          <CardTitle className="text-2xl">{isLogin ? "Welcome Back" : "Create Account"}</CardTitle>
+          <CardTitle className="text-2xl">
+            {isLogin ? "Welcome Back" : "Create Account"}
+          </CardTitle>
           <CardDescription>
-            {isLogin ? "Sign in to continue your quiz journey" : "Join Trivia Turbo today"}
+            {isLogin
+              ? "Sign in to continue your quiz journey"
+              : "Join Trivia Turbo today"}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -157,7 +176,9 @@ const Auth = () => {
               onClick={() => setIsLogin(!isLogin)}
               className="text-sm text-muted-foreground hover:text-primary transition-colors"
             >
-              {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
+              {isLogin
+                ? "Don't have an account? Sign up"
+                : "Already have an account? Sign in"}
             </button>
           </div>
         </CardContent>
