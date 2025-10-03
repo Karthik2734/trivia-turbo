@@ -15,7 +15,7 @@ const Admin = () => {
     option_b: "",
     option_c: "",
     option_d: "",
-    correct_answer: "A",
+    correct_answer: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -27,7 +27,7 @@ const Admin = () => {
       option_b: "",
       option_c: "",
       option_d: "",
-      correct_answer: "A",
+      correct_answer: "",
     });
   };
 
@@ -42,7 +42,7 @@ const Admin = () => {
         <div className="max-w-2xl mx-auto">
           <Card>
             <CardHeader>
-              <CardTitle>Add Dummy Question</CardTitle>
+              <CardTitle>Add Question</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
